@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<script>
+
+	var An = function() {}
+
+	//生成随机数组
+	An.prototype.createArray = function() {
+		var array = []
+		for(i=0;i<100000;i++){
+			array.push(Math.floor(Math.random()*200))
+		}
+		return array
+	}	
+
+	//计算时间
+	An.prototype.calculateTime = function(time) {
+		var endTime = time.endTime
+		var startTime = time.startTime
+		var spendTime = endTime - startTime
+
+		console.log('用时:'+spendTime+'毫秒')
+
+	}
+
+	//排重时间复杂度高 空间复杂度低 但是按顺序排序好
+	An.prototype.slowSort = function() {
+
+		var newArr = []
+		var arr = []
+		var hash = {}
+		var startTime = new Date().getTime()
+		var array = this.createArray()
+
+		for(var i = 0; i < array.length; i++){
+			if(array.indexOf(array[i]) != -1){
+				newArr[array[i]] = array[i]
+			}
+		}
+
+		for(var i = 0; i < newArr.length; i++){
+			if(newArr[i]){
+				arr.push(newArr[i])
+			}
+		}
+
+		console.log('排重后数组'+arr)
+
+		var endTime = new Date().getTime() 
+
+		var time = {
+			'startTime':startTime,
+			'endTime':endTime
+		}
+		this.calculateTime(time)
+	}
+
+	//排重时间复杂度低 空间复杂度高 
+	An.prototype.fastSort = function(array) {
+
+		var hash = {}
+		var arr = []
+		var startTime = new Date().getTime()
+		var array = this.createArray()
+
+		for(var i = 0; i < array.length; i++){
+			if(!hash[array[i]]){
+				hash[array[i]] = true
+				arr.push(array[i])
+			}
+		}
+
+		var endTime = new Date().getTime()
+
+		console.log('排重后数组'+arr)
+
+		var time = {
+			'startTime':startTime,
+			'endTime':endTime
+		}
+
+		this.calculateTime(time) 
+
+	}
+
+	//快速排序
+	An.prototype.quickSort = function() {
+
+		var a = this.createArray()
+
+		if (a.length <= 1) { return a; }
+		var qux = Math.round(a.length / 2) //基准下标
+		var left = []
+		var right = []
+
+		for(var i = 0; i<a.length; i++){
+			if(a[i]<a[qux]){
+				left.push(a[i])
+			}
+			if(a[i]>a[qux]){
+				right.push(a[i])
+			}
+		}
+
+		var result = quickArr(left).concat(a[qux], quickArr(right))
+
+		console.log(result) 
+	}
+
+
+	// var aty = new An()
+	// aty.slowSort()
+	// aty.fastSort()
+	// aty.quickSort()
+	
+/*
+*	获取字符重复数
+*
+*
+*/
+	// var a = 'ncwqonconasbcuoqcnqoqvbpeqqv'
+	// function getRepeatTime() {
+	// 	var hash = {}
+	// 	for(var i = 0; i<a.length; i++){
+	// 		if(!hash[a.charAt(i)]){
+	// 			hash[a.charAt(i)] = 0
+	// 		}
+	// 		hash[a.charAt(i)]++
+	// 	}
+	// 	return hash
+	// }
+	
+	var a = [[-10,11], [2,5], [3,10], [40,45], [40,50], [-3,1]]
+	An.prototype.addArray = function(a) {
+		for(var i = 0; i < a.length; i++) {
+			for(var j = 1; j< a.length; j++) {
+				if(a[i][0] < 0) {
+					a[i][0] = 0
+				}
+				if(a[i][1] > 300) {
+					a[i][1] = 300
+				}
+			}
+		}
+		console.log(a)
+		for(var i = 0; i < a.length; i++) {
+			for(var j = 1; j < a.length; j++) {
+				if((a[i][1] > a[j][0] && a[j][1] > a[i][1]) || (a[i][1] == a[j][0] && a[j][1] > a[i][1]) || (a[i][1] > a[j][0] && a[j][1] == a[i][1])) {
+					a[i][1] = a[j][1]
+					a.splice(j, 1, 0)
+				}
+				if((a[i][0] < a[j][0] && a[i][1] > a[j][1]) || (a[i][0] == a[j][0] && a[i][1] > a[j][1]) || (a[i][0] < a[j][0] && a[i][1] == a[j][1])) {
+					a.splice(j, 1, 0)
+				}
+			}
+		}
+		console.log(a)
+		var b = a.filter((item) => {
+			return item !== 0
+		})
+		console.log(b)
+	}
+	var aty = new An()
+	aty.addArray(a);
+</script>
+</body>
+</html>

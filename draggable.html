@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #div1{
+            height: 200px;
+            width: 200px;
+            /*position: absolute;*/
+            background-color: red;
+        }
+        .draggable{
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div class="draggable" id="div1"></div>
+
+</body>
+<script type="text/javascript">
+    var EventUtil = {
+        addHandler: function(element,type,handler){
+            if(element.addEventListener){
+                element.addEventListener(type,handler,false);
+            }
+            else if(element.attachEvent){
+                element.attachEvent('on'+type,handler)
+            }
+            else
+            {
+                element['on'+type] =handler;
+            }
+        },
+        removeHandler: function(element,type,handler){
+            if(element.removeEventListener){
+                element.removeEventListener(type,handler,false);
+            }
+            else if(element.detachEvent){
+                element.detachEvent('on'+type,handler);
+            }
+            else{
+                element['on'+type] = handler;
+            }
+        },
+        getEvent: function(event){
+            return event||window.event;
+        },
+        getTarget: function(event){
+            return event.target||event.srcElement;
+        }
+    };
+
+    var DragDrop = function(){
+        var drag = null;
+        var diffX=0;
+        var diffY=0;
+        function handlerEvent (event){
+            event = EventUtil.getEvent(event);
+            var target = EventUtil.getTarget(event);
+            switch(event.type){
+                case 'mousedown':
+                    if(target.className.indexOf('draggable')>-1){
+                        drag = target;
+                        diffX = event.clientX-target.offsetLeft;
+                        diffY = event.clientY-target.offsetTop;
+                    }
+                    break;
+                case 'mousemove':
+                    if(drag !== null){
+                        drag.style.left =event.clientX-diffX+'px';
+                        drag.style.top = event.clientY-diffY+'px';
+                    }
+                    break;
+                case 'mouseup':
+                    drag = null;
+                    break;
+            }
+        }
+        return{
+            enable: function(){
+                EventUtil.addHandler(document,'mousedown',handlerEvent);
+                EventUtil.addHandler(document,'mousemove',handlerEvent);
+                EventUtil.addHandler(document,'mouseup',handlerEvent);
+            },
+            disable: function(){
+                EventUtil.removeHandler(document,'mousedown',handlerEvent);
+                EventUtil.removeHandler(document,'mousemove',handlerEvent);
+                EventUtil.removeHandler(document,'mouseup',handlerEvent);
+
+            }
+
+        }
+
+    };
+    EventUtil.addHandler(window,'load',function(event){
+        DragDrop().disable();
+        DragDrop().enable();
+        
+    })
+
+</script>
+</html>
