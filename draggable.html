@@ -62,6 +62,7 @@
             switch(event.type){
                 case 'mousedown':
                     if(target.className.indexOf('draggable')>-1){
+                        console.log(target.className)
                         drag = target;
                         diffX = event.clientX-target.offsetLeft;
                         diffY = event.clientY-target.offsetTop;

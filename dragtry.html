@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>dragtry</title>
+	<style>
+		#drag{
+			width: 200px;
+			height: 200px;
+			background-color: green;
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+	<div class="dragAble" id="drag" ></div>
+	<script>
+		//底层对象提供绑定事件、target目标、event类型
+		var baseHandler = {
+			// addListener:function(event, type, isFalse) {
+
+			// },
+			// getEvent:event||event.window,
+			getEvent:function(event) {
+				return event||window.event
+			},
+			getTarget:function(event) {
+				return event.target||event.srcElement
+			},
+			addListener:function(src, type, eventHandle) {
+				src.addEventListener(type, eventHandle, false)
+			}
+		}
+		//dragAble函数 点击up move down 计算鼠标位置时时改变元素位置
+		var dragAble = function() {
+			var drag = null
+			var diffX = 0
+			var diffY = 0
+			var dragAbleControl = function(event) {
+				event = baseHandler.getEvent(event)
+				var target = baseHandler.getTarget(event)
+				switch(event.type){
+					case'mousedown':
+						if(target.className.indexOf('dragAble') > -1) {
+							if(event.button === 2) {
+								console.log(event)
+								// event.preventDefault()
+								return false
+								console.log('ltn')
+							}
+							drag = target
+							diffX = event.clientX - target.offsetLeft
+							diffY = event.clientY - target.offsetTop
+						}
+						break
+					case'mousemove':
+						if(drag !== null) {
+							drag.style.left = event.clientX - diffX +'px'
+							drag.style.top = event.clientY - diffY +'px'
+						}
+						break
+					case'mouseup':
+						drag = null
+						break
+
+				}
+			}
+			return {
+				enable:function() {
+					baseHandler.addListener(document, 'mousedown', dragAbleControl)
+					baseHandler.addListener(document, 'mousemove', dragAbleControl)
+					baseHandler.addListener(document, 'mouseup', dragAbleControl)
+				}
+			}
+		}
+		window.onload = function() {
+			console.log('done')
+			dragAble().enable()
+		}
+	</script>
+</body>
+</html>

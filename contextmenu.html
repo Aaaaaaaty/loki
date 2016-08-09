@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #div1{
+            width: 100px;
+            height:100px;
+            background-color: red;
+        }
+        #menu{
+            width: 50px;
+            height: 100px;
+            background-color: green;
+            position: absolute;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">点击这里</div>
+<ul id="menu">
+    <li>deifid</li>
+    <li>deifid</li>
+    <li>deifid</li>
+    <li>deifid</li>
+</ul>
+</body>
+<script type="text/javascript">
+    var EventUtil = {
+        addHandler: function(element,type,handler){
+            if(element.addEventListener){
+                element.addEventListener(type,handler,false);
+            }
+            else if(element.attachEvent){
+                element.attachEvent('on'+type,handler);
+            }
+            else{
+                element['on'+type] = handler;
+            }
+        },
+        getEvent: function(event){
+            return event||window.event
+        },
+        getTarget: function(event){
+            return event.target||event.srcElement
+        },
+        removeHandler: function(element,type,handler){
+            if(element.removeEventListener){
+                element.removeEventListener(type,handler,false)
+            }
+            else if(element.detachEvent){
+                element.detachEvent('on'+type,handler)
+            }
+            else{
+                element['on'+type] =null
+            }
+        },
+        preventDefault: function(event){
+            if(event.preventDefault){
+                event.preventDefault()
+            }
+            else{
+                event.returnValue = false
+            }
+        }
+    }
+    EventUtil.addHandler(window,'load',function(){
+        var div1 = document.getElementById('div1')
+        var menu = document.getElementById('menu')
+        EventUtil.addHandler(div1,'mousedown',function(event){
+            if(event.button === 2 ) {
+                EventUtil.getTarget(event).oncontextmenu = function() {
+                    return false
+                }
+                event = EventUtil.getEvent(event)
+                EventUtil.preventDefault(event)
+                menu.style.left = event.clientX +'px'
+                menu.style.top = event.clientY +'px'
+                menu.style.visibility = 'visible'
+                }
+        })
+        EventUtil.addHandler(document,'click',function(){
+            menu.style.visibility = 'hidden'
+        })
+
+
+
+    })
+</script>
+</html>
