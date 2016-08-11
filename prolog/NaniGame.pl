@@ -43,5 +43,5 @@ match(hello,douban).
 match(douban,hello).
 %% match(X,hi).
 greet(X,Y) :- match(X,Y).
-%% greet(X) :- not(match(X,Y)),match(X,hi).
+greet(X) :- not(match(X,Y)),match(X,hi).
 %% greet(hi,X) :- fail.
