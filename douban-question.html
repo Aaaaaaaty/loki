@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>douban</title>
+	<style>
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+		.grid {
+			width: 1024px;
+			margin:20px auto;
+			background-color: yellow;
+		}
+		.grid:after {
+			content: '';
+			display: table;
+			clear: both;
+		}
+		.grid-item {
+			background-color: green;
+			display: block;
+			width: 33.3333%;
+			float: left;
+			box-sizing: border-box;
+			padding: 0 10px;
+		}
+		.p-img img {
+			width: 321px;
+		}
+	</style>
+</head>
+<body>
+	<div class="article-card grid" id="articleCard">
+		<a class="grid-item" target="_blank">
+			<div class="product-item">
+				<div class="p-img">
+					<img onerror="this.src=''" src="https://placem.at/thing?w=640&h=360"/>
+				</div>
+				<div class="p-title">
+					这是文章的标题
+				</div>
+				<div class="p-description">
+					每一件LAMY产品都体现出品牌的核心价值：设计时尚、品质卓越、德国制造。LAMY几乎囊括了所有国际性的设计大奖。				
+				</div>
+			</div>
+		</a>
+		<a class="grid-item" target="_blank">
+			<div class="product-item">
+				<div class="p-img">
+					<img onerror="this.src=''" src="https://placem.at/thing?w=640&h=360"/>
+				</div>
+				<div class="p-title">
+					这是文章的标题
+				</div>
+				<div class="p-description">
+					每一件LAMY产品都体现出品牌的核心价值：设计时尚、品质卓越、德国制造。LAMY几乎囊括了所有国际性的设计大奖。				
+				</div>
+			</div>
+		</a>
+		<a class="grid-item" target="_blank">
+			<div class="product-item">
+				<div class="p-img">
+					<img onerror="this.src=''" src="https://placem.at/thing?w=640&h=360"/>
+				</div>
+				<div class="p-title">
+					这是文章的标题
+				</div>
+				<div class="p-description">
+					每一件LAMY产品都体现出品牌的核心价值：设计时尚、品质卓越、德国制造。LAMY几乎囊括了所有国际性的设计大奖。				
+				</div>
+			</div>
+		</a>
+	</div>
+
+</body>
+</html>
