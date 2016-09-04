@@ -74,6 +74,7 @@
                 EventUtil.getTarget(event).oncontextmenu = function() {
                     return false
                 }
+                
                 event = EventUtil.getEvent(event)
                 EventUtil.preventDefault(event)
                 menu.style.left = event.clientX +'px'
@@ -84,9 +85,7 @@
         EventUtil.addHandler(document,'click',function(){
             menu.style.visibility = 'hidden'
         })
-
-
-
+        
     })
 </script>
 </html>
