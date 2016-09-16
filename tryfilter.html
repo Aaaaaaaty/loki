@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>原生实现filter</title>
+  </head>
+  <body>
+  </body>
+  <script type="text/javascript">
+    Array.prototype.filterTry = function(fn) {
+      for(let i = 0; i < this.length; i++ ) {
+        let item = this[i]
+        let index = i
+        fn(item, index)
+      }
+    }
+    a = [1, 2, 3]
+    a.filterTry((item, index) => {
+      console.log(item * 2)
+    })
+  </script>
+</html>
