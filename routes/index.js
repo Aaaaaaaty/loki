@@ -1,13 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
 var redis = require('redis')
 var client = redis.createClient(6379, 'localhost')
-client.set('hello', 'this is a value')
 
+Object.prototype.toString = function(){
+	return JSON.stringify(this)
+}
+
+client.set('a', {a: 1, b: 2})
+client.get('a', function( v) {
+	console.log('redis get hello',  v, typeof v)
+})
 module.exports = router;
