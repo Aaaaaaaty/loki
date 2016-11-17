@@ -5,7 +5,7 @@ var tencentyun = require('tencentyun');
 
 var server=new http.Server();
 server.on('request',function(req,res){
-
+    res.setHeader('Access-Control-Allow-Origin', '*');
     var urlinfo = url.parse(req.url,true),
         type = 'upload';
 
