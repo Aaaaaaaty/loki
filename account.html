@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+</body>
+<script>
+	var arr = ['a', 'bb', 'c', 'd', 'e']
+	var addSymList = function(arr) { //添加字母分隔符
+      var findSym = 'A'
+      var status = false
+      var addedList = []
+      arr.map((item, index) => {
+        if(item.charAt(0).toUpperCase() == findSym) {
+          if(!status) {
+            addedList.push(findSym)
+            addedList.push(item)
+            status = true
+          } else {
+          	addedList.push(item)
+          }
+          
+          
+        } else {
+          // status = false
+          findSym = item.charAt(0)
+          addedList.push(findSym)
+          addedList.push(item)
+        }
+      })
+      return addedList
+    }
+    console.log(addSymList(arr))
+</script>
+</html>
