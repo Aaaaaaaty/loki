@@ -23,7 +23,7 @@ server.on('request',function(req,res){
     tencentyun.conf.setAppInfo(projectId, secretId, secretKey);
 
     var error = false;
-
+    console.log(type)
     switch(type) {
         case 'upload':
             var fileid = '/u/can/use/slash/sample' + Math.round(+new Date()/1000),
@@ -37,7 +37,10 @@ server.on('request',function(req,res){
                 error = true;
             } else {
                 var fileid = decodeURIComponent(urlinfo.query.fileid),
-                    otherurl = tencentyun.imagev2.generateResUrlV2(bucket, userid, fileid),
+                    // otherurl = tencentyun.imagev2.generateResUrlV2(bucket, userid, fileid),
+                    otherurl = tencentyun.stat(bucket, fileid, function() {
+                        console.log(ret)
+                    })
                     ret = {'url':otherurl};
             }
             break;
